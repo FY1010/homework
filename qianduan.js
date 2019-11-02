@@ -64,17 +64,19 @@ function arr() {
     console.log(list);
 }
 
-function selectorP() {
-    let myElementP = $('p');
-    console.log(myElementP);
-}
-function selectorId() {
-    let myElementId = $('#myid');
-    console.log(myElementId);
-}
-function selectorClass() {
-    let myElementClass = $('.myclass');
-    console.log(myElementClass);
+function mySelector() {
+
+    let OmySelect = document.getElementById('selector');
+    let Oinput = OmySelect.value;
+    if(Oinput == 'p'){
+        let select = document.getElementsByTagName('p');
+    }else if(Oinput == 'myid'){
+        let select = document.getElementById("myid");
+    }else if(Oinput == 'myclass'){
+        let select = document.getElementsByClassName('myclass');
+    }else {
+        alert("请确认是否输入的是p,myid或myclass");
+    }
 }
 
 const arr1 = [1,1,1,2,2,3,4,4,5,5,5];
