@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="btn1">点击我get</button>
+<button id="btn2">点击我post</button>
+<button id="btn3">点击我fetch</button>
+<script>
+    document.getElementById('btn1').onclick = function () {
+        let xhr = new XMLHttpRequest();
+        xhr.open('get', 'http://39.107.142.107:3000/mock/25/getText');
+        xhr.setRequestHeader('Accept','application/json');
+        xhr.send(null);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText)
+                } else {
+                    alert('请求失败')
+
+                }
+            }
+        }
+    };
+    document.getElementById('btn2').onclick = function () {
+        let xhr = new XMLHttpRequest();
+        xhr.open('post', 'http://39.107.142.107:3000/mock/25/testPost');
+        xhr.setRequestHeader('Accept','application/json');
+        xhr.send(null);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText)
+                } else {
+                    alert('请求失败')
+                }
+            }
+        };
+    };
+    document.getElementById('btn3').onclick = function () {
+        fetch('http://39.107.142.107:3000/mock/25/getText',{
+            headers: {
+                'content-type': 'application/json'
+            },
+            method: 'GET'
+        })
+            .then((response) => {
+                response.json();
+                console.log(response)
+            })
+    };
+
+    const getJSON = function (url) {
+        const promise = new Promise(function (resolve, reject) {
+            const handler = function () {
+                if (this.readyState !== 4) {
+                    return;
+                }
+                if (this.status === 200) {
+                    resolve(this.response);
+                } else {
+                    reject(new Error(this.statusText))
+                }
+            };
+            const client = new XMLHttpRequest();
+            client.open("GET", url);
+            client.onreadystatechange = handler;
+            client.setRequestHeader("Accept", "application/json");
+            client.send()
+        });
+        return promise;
+    };
+    const postJSON = function (url) {
+        const promise = new Promise(function (resolve, reject) {
+            const handler = function () {
+                if (this.readyState !== 4) {
+                    return;
+                }
+                if (this.status === 200) {
+                    resolve(this.response);
+                } else {
+                    reject(new Error(this.statusText))
+                }
+            };
+            const client = new XMLHttpRequest();
+            client.open("POST", url);
+            client.onreadystatechange = handler;
+            client.setRequestHeader("Accept", "application/json");
+            client.send()
+        });
+        return promise;
+    };
+    getJSON('http://39.107.142.107:3000/mock/25/getText');
+    postJSON('http://39.107.142.107:3000/mock/25/testPost');
+</script>
+</body>
+</html>
